@@ -1,9 +1,11 @@
-istoriNaija Chrome Extension 🌍🇳🇬
+# HistoriNaija Chrome Extension 🌍🇳🇬
 HistoriNaija is a smart Chrome extension that makes Nigerian history and culture more accessible and engaging. Whether you're researching, browsing, or just curious, HistoriNaija is here to simplify, explain, and guide you through Nigeria's rich historical landscape.
 
 # 🚀 Features
 Text Explanation: Highlight any text on Nigerian history, and HistoriNaija will provide clear, concise explanations to enhance your understanding.
+
 Simplified Webpages: Automatically simplify webpages related to Nigerian history for easier reading and better comprehension.
+
 Conversation Mode: Interact with the extension in a chat-style format to ask questions, get insights, or dive deeper into specific topics.
 # 🛠️ Installation
 Clone or download the repository:
