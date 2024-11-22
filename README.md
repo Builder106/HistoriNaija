@@ -9,22 +9,24 @@ Simplified Webpages: Automatically simplify webpages related to Nigerian history
 Conversation Mode: Interact with the extension in a chat-style format to ask questions, get insights, or dive deeper into specific topics.
 # 🛠️ Installation
 Clone or download the repository:
-bash
-Copy code
 git clone https://github.com/your-username/historinaija-extension.git
+
 Open Chrome and navigate to chrome://extensions.
+
 Toggle on Developer Mode in the top-right corner.
+
 Click Load unpacked and select the extension folder.
+
 You're all set! Click the HistoriNaija icon in your toolbar and start exploring. 🎉
 
 # 📝 Contributing
 We welcome contributions! Here's how you can help:
 
 Fork the repository.
+
 Create a new branch for your feature or bugfix:
-bash
-Copy code
 git checkout -b feature-name
+
 Commit your changes and push to your branch.
 Open a pull request on the main repository.
 # 📚 Resources and References
