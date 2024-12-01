@@ -3,6 +3,32 @@ import CustomDropdown from "./components/CustomDropDown";
 import ActionButton from "./components/ActionButton";
 
 export default function App() {
+  const getHighlightedText = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0]?.id) {
+        chrome.tabs.sendMessage(
+          tabs[0].id,
+          { action: "GET_HIGHLIGHTED_TEXT" },
+          (response) => {
+            if (response.text) {
+              console.log("Highlighted text:", response.text);
+              setText(response.text);
+            } else {
+              console.error(response.error);
+            }
+          }
+        );
+      }
+    });
+  };
+
+  chrome.runtime.onMessage.addListener((message) => {
+    if (message.action === "SIMPLIFIED_TEXT") {
+      console.log("Simplified text received:", message.text);
+      // Update the UI with the simplified text
+    }
+  });
+
   const handleClick = async (event: React.MouseEvent) => {
     await sendDataToAI(
       "Ladipo is a big goat, even though he is a boss. Go brush werey"
@@ -19,7 +45,7 @@ export default function App() {
         body: JSON.stringify({ input }),
       });
       const data = await response.json();
-      console.log("this is the result: " + data.result); // "AI processed: Hello AI"
+      console.log("this is the result: " + data.result);
       setText(data.result);
     } catch (error) {
       console.error("Error communicating with backend:", error);
@@ -47,7 +73,7 @@ export default function App() {
                   <button
                     className="overflow-hidden gap-2 self-start p-3 mr-0 bg-green-800 rounded-lg border border-solid border-zinc-800"
                     tabIndex={0}
-                    onClick={handleClick}
+                    onClick={getHighlightedText}
                   >
                     Simplify Content
                   </button>
