@@ -4,15 +4,16 @@
     "version": "1.0.0",
     "permissions": ["scripting", "activeTab"],
     "background": {
-      "service_worker": "background.js"
+      "service_worker": "js/background.js"
     },
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "js": ["content.js"]
+        "js": ["js/content.js"]
       }
     ],
     "action": {
+      "default_popup": "js/index.html",
       "default_title": "Google AI Challenge"
     }
   }
