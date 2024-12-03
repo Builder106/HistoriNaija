@@ -31,7 +31,7 @@ export default function App() {
       if (tabs[0]?.id) {
         chrome.tabs.sendMessage(
           tabs[0].id,
-          { action: "DETECT_TRANSLATE" },
+          { action: "DETECT_TRANSLATE", selected: text, target: "fr" }, //swap fr for a variable
           (response) => {
             if (response.translatedtext) {
               console.log("Highlighted text:", response);
