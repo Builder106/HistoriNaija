@@ -3,6 +3,10 @@ import CustomDropdown from "./components/CustomDropDown";
 import ActionButton from "./components/ActionButton";
 
 export default function App() {
+  //@ts-ignore
+  console.log("chrome.language:", chrome.language);
+  //@ts-ignore
+  console.log("chrome.language.translate:", chrome.language?.translate);
   const getHighlightedText = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs[0]?.id) {
@@ -22,35 +26,31 @@ export default function App() {
     });
   };
 
+  function onDetectAndTranslate() {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0]?.id) {
+        chrome.tabs.sendMessage(
+          tabs[0].id,
+          { action: "DETECT_TRANSLATE" },
+          (response) => {
+            if (response.translatedtext) {
+              console.log("Highlighted text:", response);
+              setText(response.translatedtext);
+            } else {
+              console.error(response.error);
+            }
+          }
+        );
+      }
+    });
+  }
+
   chrome.runtime.onMessage.addListener((message) => {
     if (message.action === "SIMPLIFIED_TEXT") {
       console.log("Simplified text received:", message.text);
-      // Update the UI with the simplified text
     }
   });
 
-  const handleClick = async (event: React.MouseEvent) => {
-    await sendDataToAI(
-      "Ladipo is a big goat, even though he is a boss. Go brush werey"
-    );
-  };
-
-  const sendDataToAI = async (input: string) => {
-    try {
-      const response = await fetch("http://localhost:5000/process", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ input }),
-      });
-      const data = await response.json();
-      console.log("this is the result: " + data.result);
-      setText(data.result);
-    } catch (error) {
-      console.error("Error communicating with backend:", error);
-    }
-  };
   let [text, setText] = useState("select text for detailed explanation");
   return (
     <main className="flex flex-col rounded-none w-[454px] max-w-[500px]">
@@ -77,6 +77,13 @@ export default function App() {
                   >
                     Simplify Content
                   </button>
+                  {/* <button
+                    className="overflow-hidden gap-2 self-start p-3 mr-0 bg-green-800 rounded-lg border border-solid border-zinc-800"
+                    tabIndex={0}
+                    onClick={}
+                  >
+                    Summarize webpage
+                  </button> */}
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets/88dde3b52c6d4a0582895a25dd445a34/8d876f66a653e45fffbc3e2cd5ed0d306db6aa61c91212b93b6f23b88c181393?apiKey=88dde3b52c6d4a0582895a25dd445a34&"
                     className="object-contain shrink-0 aspect-[0.85] w-[35px]"
@@ -97,9 +104,7 @@ export default function App() {
           {text}
         </section>
 
-        <ActionButton icon="https://cdn.builder.io/api/v1/image/assets/88dde3b52c6d4a0582895a25dd445a34/5ae38f586db18badeaa05ec92a842e0c0339cdcf87e82c7f6fabcfc6f3352654?apiKey=88dde3b52c6d4a0582895a25dd445a34&">
-          Start Conversation Mode
-        </ActionButton>
+        <button onClick={onDetectAndTranslate}>Translate</button>
 
         <h2 className="mt-4 leading-none text-black font-[number:var(--sds-typography-body-font-weight-regular)] text-[length:var(--sds-typography-body-size-medium)]">
           <strong>Customization Options</strong>

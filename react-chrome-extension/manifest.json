@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "HistoriNaija",
     "version": "1.0.0",
-    "permissions": ["scripting", "activeTab"],
+    "permissions": ["language", "scripting", "activeTab"],
     "background": {
       "service_worker": "js/background.js"
     },

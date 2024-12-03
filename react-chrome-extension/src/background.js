@@ -4,3 +4,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ success: true });
     }
 });
+
+
+
+// const summary = await summarizer.summarize(longText, {
+//   context: 'This article is intended for a tech-savvy audience.',
+// });
